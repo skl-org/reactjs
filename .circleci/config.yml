@@ -7,6 +7,8 @@ jobs:
   build:
     docker:
       - image: circleci/node:12
+    environment:
+      SHORT_GIT_HASH: $(echo $CIRCLE_SHA1 | cut -c -7)
     steps:
       - checkout
       - restore_cache:
@@ -25,7 +27,7 @@ jobs:
           docker_layer_caching: true
       - run:
           name: Build container image
-          command: 'docker build -t "skl-org/reactjs:${CIRCLE_SHA1:0:7}" .'
+          command: 'docker build -t "skl-org/reactjs:$SHORT_GIT_HASH" .'
 
 workflows:
   build_deploy:
