@@ -31,6 +31,7 @@ jobs:
           command: 'docker build -t "skl-org/reactjs:<< pipeline.number >>" .'
       - anchore/analyze_local_image:
           dockerfile_path: ./Dockerfile
+          policy_bundle_file_path: .circleci/.anchore/anchore_default_policy.json
           image_name: "skl-org/reactjs:<< pipeline.number >>"
           policy_failure: true
           timeout: "500"
