@@ -32,13 +32,13 @@ export default class Login extends Component {
                 <p className="forgot-password text-right">
                     Forgot password?
                 </p>
-                <div className="App">
+                {/* <div className="App">
                     <Hello />
                     <ErrorBoundary>
                         <MyError />
                         <MyRenderError />
                     </ErrorBoundary>
-                </div>
+                </div> */}
             </div>
         );
     }
