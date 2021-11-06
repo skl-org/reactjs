@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   docker: circleci/docker@2.0.0
-
+  anchore: anchore/anchore-engine@1
 jobs:
   build:
     docker:
@@ -38,6 +38,6 @@ jobs:
           path: anchore-reports
 
 workflows:
-  build_deploy:
+  build:
     jobs:
       - build
