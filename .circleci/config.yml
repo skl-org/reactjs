@@ -36,7 +36,6 @@ jobs:
       # - store_artifacts:
       #     path: anchore-reports/
       - anchore/analyze_local_image:
-          dockerfile_path: ./Dockerfile
           image_name: "skl-org/reactjs:<< pipeline.number >>"
           policy_bundle_file_path: .circleci/.anchore/anchore_default_policy.json
           policy_failure: true
