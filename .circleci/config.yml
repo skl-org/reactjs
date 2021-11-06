@@ -21,8 +21,8 @@ jobs:
       - run:
           name: Build from source
           command: npm run build
-      # - docker/build:
-      #     image: test/reactjs
+      - docker/build:
+          image: test/reactjs
 
 workflows:
   build_deploy:
