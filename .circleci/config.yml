@@ -1,10 +1,7 @@
 version: 2.1
 
-orbs:
-  docker: circleci/docker@0.5.13
-
 jobs:
-  run_tests:
+  npm_build:
     docker:
       - image: circleci/node:10.16.3
     steps:
@@ -24,3 +21,16 @@ jobs:
       - run:
           name: build
           command: npm build
+  docker_build:
+    docker:
+      - image: circleci/docker@2.0.0
+    steps:
+      - docker/build:
+          name: Build Docker
+          image: test/reactjs
+
+workflows:
+  build_deploy:
+    jobs:
+      - npm_build
+      - docker_build
