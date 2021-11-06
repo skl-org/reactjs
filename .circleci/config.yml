@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.0.0
   anchore: anchore/anchore-engine@1
+
 jobs:
   build:
     docker:
@@ -27,10 +28,10 @@ jobs:
           docker_layer_caching: true
       - run:
           name: Build container image
-          command: 'docker build -t "skl-org/reactjs:<< pipeline.git.base_revision >>" .'
+          command: 'docker build -t "skl-org/reactjs:<< pipeline.number >>" .'
       - anchore/analyze_local_image:
           dockerfile_path: ./Dockerfile
-          image_name: "skl-org/reactjs:<< pipeline.git.base_revision >>"
+          image_name: "skl-org/reactjs:<< pipeline.number >>"
           policy_failure: true
           timeout: "500"
       - anchore/parse_reports
