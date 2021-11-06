@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as Sentry from '@sentry/browser';
 
 export default class ErrorBoundary extends Component {
   constructor(props) {
@@ -9,7 +8,6 @@ export default class ErrorBoundary extends Component {
 
   componentDidCatch(err, info) {
     this.setState({ hasError: true });
-    Sentry.captureException(err);
   }
 
   render() {
