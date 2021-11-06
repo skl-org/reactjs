@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   docker: circleci/docker@2.0.0
   anchore: anchore/anchore-engine@1
+  snyk: snyk/snyk@1.1.2
 
 jobs:
   build:
@@ -30,14 +31,9 @@ jobs:
           name: Build container image
           command: 'docker build -t "skl-org/reactjs:<< pipeline.number >>" .'
       - anchore/analyze_local_image:
-          dockerfile_path: ./Dockerfile
-          policy_bundle_file_path: .circleci/.anchore/anchore_default_policy.json
           image_name: "skl-org/reactjs:<< pipeline.number >>"
-          policy_failure: true
           timeout: "500"
-      - anchore/parse_reports
-      - store_artifacts:
-          path: anchore-reports
+          analysis_fail: True
 
 workflows:
   build:
