@@ -2,7 +2,7 @@ version: 2.1
 
 orbs:
   docker: circleci/docker@2.0.0
-  devops_security: prisma_cloud/devops_security@3.0.4
+  anchore: anchore/anchore-engine@1.6.0
 
 jobs:
   build:
@@ -29,12 +29,21 @@ jobs:
       - run:
           name: Build container image
           command: 'docker build -t "skl-org/reactjs:<< pipeline.number >>" .'
-      - run:
-          name: Scan image
-          command: |
-            curl -s https://ci-tools.anchore.io/inline_scan-v0.3.3 | bash -s -- -r "skl-org/reactjs:<< pipeline.number >>"
+      # - run:
+      #     name: Scan image
+      #     command: |
+      #       curl -s https://ci-tools.anchore.io/inline_scan-v0.3.3 | bash -s -- -r "skl-org/reactjs:<< pipeline.number >>"
+      # - store_artifacts:
+      #     path: anchore-reports/
+      - anchore/analyze_local_image:
+          dockerfile_path: ./Dockerfile
+          image_name: "skl-org/reactjs:<< pipeline.number >>"
+          policy_bundle_file_path: .circleci/.anchore/anchore_default_policy.json
+          policy_failure: true
+          timeout: "500"
+      - anchore/parse_reports
       - store_artifacts:
-          path: anchore-reports/
+          path: anchore-reports
 
 workflows:
   build:
