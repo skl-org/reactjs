@@ -32,8 +32,8 @@ jobs:
           command: 'docker build -t "skl-org/reactjs:<< pipeline.number >>" .'
       - anchore/analyze_local_image:
           image_name: "skl-org/reactjs:<< pipeline.number >>"
-          timeout: "500"
-          analysis_fail: True
+          timeout: "300"
+          policy_failure: true
 
 workflows:
   build:
