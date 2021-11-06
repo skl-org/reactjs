@@ -31,4 +31,6 @@ workflows:
   build_deploy:
     jobs:
       - npm_build
-      - docker_build
+      - docker_build:
+          requires:
+            - npm_build
