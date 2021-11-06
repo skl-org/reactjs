@@ -2,8 +2,6 @@ version: 2.1
 
 orbs:
   docker: circleci/docker@2.0.0
-  anchore: anchore/anchore-engine@1
-  snyk: snyk/snyk@1.1.2
 
 jobs:
   build:
@@ -30,10 +28,11 @@ jobs:
       - run:
           name: Build container image
           command: 'docker build -t "skl-org/reactjs:<< pipeline.number >>" .'
-      - anchore/analyze_local_image:
-          image_name: "skl-org/reactjs:<< pipeline.number >>"
-          timeout: "300"
-          policy_failure: true
+      - run:
+          name: Scan image
+          command: |
+            apk add curl bash
+            curl -s https://ci-tools.anchore.io/inline_scan-v0.3.3 | bash -s -- -r "skl-org/reactjs:<< pipeline.number >>"
 
 workflows:
   build:
