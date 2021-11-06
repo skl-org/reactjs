@@ -29,7 +29,6 @@ jobs:
       - image: circleci/docker@2.0.0
     steps:
       - docker/build:
-          name: Build Docker
           image: test/reactjs
 
 workflows:
