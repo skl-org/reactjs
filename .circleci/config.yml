@@ -28,6 +28,14 @@ jobs:
       - run:
           name: Build container image
           command: 'docker build -t "skl-org/reactjs:<< pipeline.git.base_revision >>" .'
+      - anchore/analyze_local_image:
+          dockerfile_path: ./Dockerfile
+          image_name: "skl-org/reactjs:<< pipeline.git.base_revision >>"
+          policy_failure: true
+          timeout: "500"
+      - anchore/parse_reports
+      - store_artifacts:
+          path: anchore-reports
 
 workflows:
   build_deploy:
