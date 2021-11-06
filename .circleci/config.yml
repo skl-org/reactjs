@@ -27,7 +27,7 @@ jobs:
           docker_layer_caching: true
       - run:
           name: Build container image
-          command: 'docker build -t "skl-org/reactjs:$SHORT_GIT_HASH" .'
+          command: 'docker build -t "skl-org/reactjs:<< pipeline.git.base_revision >>" .'
 
 workflows:
   build_deploy:
