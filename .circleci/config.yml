@@ -19,11 +19,10 @@ jobs:
           paths:
             - ./node_modules
       - run:
-          name: build
-          command: npm build
+          name: Build from source
+          command: npm run build
   docker_build:
-    docker:
-      - image: circleci/docker@2.0.0
+    executor: docker/docker
     steps:
       - docker/build:
           image: test/reactjs
