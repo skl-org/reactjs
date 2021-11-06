@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import * as Sentry from '@sentry/browser';
 
 export default class Hello extends Component {
   state = {
@@ -29,7 +28,6 @@ export default class Hello extends Component {
       // if (process.env.NODE_ENV !== 'production') {
       //   return;
       // }
-      Sentry.captureException(err);
     }
   }
 }
