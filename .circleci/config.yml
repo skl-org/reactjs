@@ -21,6 +21,8 @@ jobs:
       - run:
           name: Build from source
           command: npm run build
+      - setup_remote_docker:
+          docker_layer_caching: true
       - docker/build:
           image: test/reactjs
 
