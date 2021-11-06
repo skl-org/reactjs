@@ -23,8 +23,9 @@ jobs:
           command: npm run build
       - setup_remote_docker:
           docker_layer_caching: true
-      - docker/build:
-          image: test/reactjs
+      - run:
+          name: Build container image
+          command: 'docker build -t "skl-org/reactjs:${CIRCLE_SHA1:0:7}" .'
 
 workflows:
   build_deploy:
